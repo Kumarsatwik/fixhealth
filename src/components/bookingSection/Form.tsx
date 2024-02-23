@@ -87,10 +87,13 @@ const Form = () => {
 
     const phoneNumberPattern = /^\d{10}$/;
 
-    console.log(phoneNumberPattern.test(formData.phone));
-
     if (phoneNumberPattern.test(formData.phone)) {
       toast.error("Enter valid phone number");
+      return;
+    }
+
+    if (formData.age > 100) {
+      toast.error("Please enter valid age");
       return;
     }
 
