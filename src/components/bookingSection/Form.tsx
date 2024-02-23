@@ -36,12 +36,8 @@ interface MyPhoneInputProps {
   onChange: (phone: string) => void;
 }
 
-interface CityParams {
-  city: string;
-}
-
 const Form = () => {
-  const cityParams: CityParams = useAppSelector((state) => state.city.city);
+  const cityParams: string = useAppSelector((state) => state.city.city);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<FormData>({
@@ -147,19 +143,21 @@ const Form = () => {
   // console.log("formData", formData);
 
   useEffect(() => {
-    if (cityParams.city !== "" && cityParams.city !== undefined) {
+    if (cityParams !== "" && cityParams !== undefined) {
       setFormData((prevData) => ({
         ...prevData,
-        city: cityParams.city,
+        city: cityParams as string,
       }));
-      const cityData = data.filter((doctor) => doctor.city === cityParams.city);
+      const cityData = data.filter(
+        (doctor) => doctor.city === (cityParams as string)
+      );
 
       setFilteredData(cityData);
 
       if (cityData.length > 0) {
         setCity(cityData.map((doctor) => doctor.city));
       } else {
-        setCity([cityParams.city == "None" ? "" : cityParams.city]);
+        setCity([cityParams == "None" ? "" : (cityParams as string)]);
       }
     }
   }, [cityParams, data]);

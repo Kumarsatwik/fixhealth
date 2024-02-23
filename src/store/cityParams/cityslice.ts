@@ -17,7 +17,7 @@ export const citySlice = createSlice({
   initialState,
   reducers: {
     setCity(state, action) {
-      state.city = action.payload;
+      state.city = action.payload.city;
     },
   },
 });
