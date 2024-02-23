@@ -57,6 +57,11 @@ const Form = () => {
       return alert("please fill all details");
     }
 
+    if (formData.phone.length < 10 || formData.phone.length > 10) {
+      toast.error("Phone Number should not be smaller and greater than 10");
+      return;
+    }
+
     toast.success("Booking successfull ! Please wait for doctor confirmation");
     setTimeout(() => {
       navigate("/");
