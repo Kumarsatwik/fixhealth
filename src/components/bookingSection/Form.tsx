@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
+import { useAppSelector } from "../../store/store";
 
 interface FormData {
   name: string;
@@ -36,9 +36,14 @@ interface MyPhoneInputProps {
   onChange: (phone: string) => void;
 }
 
+interface CityParams {
+  city: string;
+}
+
 const Form = () => {
+  const cityParams: CityParams = useAppSelector((state) => state.city.city);
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [formData, setFormData] = useState<FormData>({
     name: "",
     phone: "",
@@ -139,25 +144,25 @@ const Form = () => {
       });
   }, []);
 
-  useEffect(() => {
-    const citySize = new URLSearchParams(location.search);
-    const cityName = citySize.get("city") || "None";
-    console.log(citySize.size);
+  // console.log("formData", formData);
 
-    if (citySize.size > 0) {
+  useEffect(() => {
+    if (cityParams.city !== "" && cityParams.city !== undefined) {
       setFormData((prevData) => ({
         ...prevData,
-        city: cityName,
+        city: cityParams.city,
       }));
-      const cityData = data.filter((doctor) => doctor.city === cityName);
+      const cityData = data.filter((doctor) => doctor.city === cityParams.city);
+
       setFilteredData(cityData);
+
       if (cityData.length > 0) {
         setCity(cityData.map((doctor) => doctor.city));
       } else {
-        setCity([]);
+        setCity([cityParams.city == "None" ? "" : cityParams.city]);
       }
     }
-  }, [location.search, data]);
+  }, [cityParams, data]);
 
   return (
     <div className="flex gap-10 justify-between ">
