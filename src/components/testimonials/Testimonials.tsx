@@ -18,7 +18,7 @@ const Testimonials = () => {
     dots: true,
     infinite: true,
     speed: 300,
-    slidesToShow: 2,
+    slidesToShow: 3,
     slidesToScroll: 1,
   };
 
@@ -36,7 +36,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <div className="my-10 w-full mx-auto" id="testimonials">
+    <div className="my-10 w-full mx-auto " id="testimonials">
       <h1 className="text-3xl font-bold text-center my-5">Testimonials</h1>
       {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mx-3">
         {data.map((item) => (
@@ -59,24 +59,34 @@ const Testimonials = () => {
 
       <Slider {...settings}>
         {data.map((item) => (
-          <div className="border p-5 rounded my-2 h-[250px]" key={item.id}>
-            <span className="flex justify-start gap-x-4 mb-2">
+          <div
+            className="border rounded-xl  hover:shadow-sm hover:shadow-white"
+            key={item.id}
+          >
+            <div className="h-auto p-2 bg-indigo-500 flex justify-center items-center rounded-t-xl">
               <img
                 src={item.photo_url}
-                className="w-10 h-10 rounded-full"
+                className="w-44 h-44 rounded-full"
                 alt=""
               />
-              <p className="text-lg font-semibold mt-2"> {item.name}</p>
-            </span>
-            <p className="text-sm font-mono italic mb-2 ml-12">
-              {Array.from({ length: item.rating }).map((_, index) => (
-                <span key={index}>⭐️</span>
-              ))}
-            </p>
-            <p className="text-lg font-mono italic mb-2 font-bold">
-              {item.heading}
-            </p>
-            <p className="text-sm font-mono italic">{item.testimonial}</p>
+            </div>
+            <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-xl">
+              <p className="text-lg font-semibold"> {item.name}</p>
+
+              <p className="text-lg font-mono italic font-bold">
+                {item.heading}
+              </p>
+
+              <p className="text-sm text-center font-mono italic">
+                {item.testimonial}
+              </p>
+
+              <p className="text-sm font-mono italic mb-2">
+                {Array.from({ length: item.rating }).map((_, index) => (
+                  <span key={index}>⭐️</span>
+                ))}
+              </p>
+            </div>
           </div>
         ))}
       </Slider>

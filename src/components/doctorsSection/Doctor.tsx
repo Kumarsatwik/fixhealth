@@ -35,7 +35,7 @@ const Doctor: React.FunctionComponent<IDoctorProps> = () => {
 
       <div className="grid grid-cols-4 gap-4">
         {data.map((item) => (
-          <article className="overflow-hidden border rounded-lg bg-white shadow-md hover:shadow-blue-500 ">
+          <article className="overflow-hidden border rounded-lg  shadow-md hover:shadow-gray-500 ">
             <img alt="" src={item.image} className="h-56 w-full object-cover" />
 
             <div className="p-4 sm:p-6">
