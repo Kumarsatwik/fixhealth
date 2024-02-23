@@ -28,7 +28,7 @@ const Doctor: React.FunctionComponent<IDoctorProps> = () => {
   }, []);
 
   return (
-    <div className="mx-auto mt-24" id="doctors">
+    <div className="mx-auto mt-24 text-white" id="doctors">
       <h2 className="text-4xl font-bold text-center my-16">
         Our Top Rated <span className="text-[#00acc1]">Doctors</span>
       </h2>

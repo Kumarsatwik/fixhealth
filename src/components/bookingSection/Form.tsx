@@ -3,6 +3,10 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 interface FormData {
   name: string;
   phone: string;
@@ -21,6 +25,16 @@ interface Doctor {
   city: string;
   experience_years: number;
 }
+interface MyPhoneInputProps {
+  country: string;
+  name: string;
+  inputProps: {
+    className: string;
+    required: boolean;
+  };
+  value: string;
+  onChange: (phone: string) => void;
+}
 
 const Form = () => {
   const navigate = useNavigate();
@@ -38,6 +52,19 @@ const Form = () => {
   const [data, setData] = useState<Doctor[]>([]);
 
   const [city, setCity] = useState<string[]>([]);
+
+  const phoneInputProps: MyPhoneInputProps = {
+    country: "in",
+    name: "phone",
+    inputProps: {
+      className:
+        "mt-1 pl-10 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm h-10 p-2 border",
+      required: true,
+    },
+    value: formData.phone,
+    onChange: (phone: string) =>
+      setFormData((prevData) => ({ ...prevData, phone })),
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,8 +85,12 @@ const Form = () => {
       return;
     }
 
-    if (formData.phone.length < 10 || formData.phone.length > 10) {
-      toast.error("Phone Number should not be smaller and greater than 10");
+    const phoneNumberPattern = /^\d{10}$/;
+
+    console.log(phoneNumberPattern.test(formData.phone));
+
+    if (phoneNumberPattern.test(formData.phone)) {
+      toast.error("Enter valid phone number");
       return;
     }
 
@@ -106,24 +137,28 @@ const Form = () => {
   }, []);
 
   useEffect(() => {
-    const cityName = new URLSearchParams(location.search).get("city");
+    const citySize = new URLSearchParams(location.search);
+    const cityName = citySize.get("city") || "None";
+    console.log(citySize.size);
 
-    if (cityName) {
+    if (citySize.size > 0) {
       setFormData((prevData) => ({
         ...prevData,
         city: cityName,
       }));
       const cityData = data.filter((doctor) => doctor.city === cityName);
       setFilteredData(cityData);
-      if (!city.includes(cityName)) {
-        setCity([...city, cityName]);
+      if (cityData.length > 0) {
+        setCity(cityData.map((doctor) => doctor.city));
+      } else {
+        setCity([]);
       }
     }
-  }, [location.search, data, city]);
+  }, [location.search, data]);
 
   return (
-    <div className="flex gap-10 justify-between bg-white">
-      <section className="bg-white">
+    <div className="flex gap-10 justify-between ">
+      <section className="">
         <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
           <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
             <img
@@ -135,11 +170,11 @@ const Form = () => {
 
           <main className="flex items-start justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
             <div className="max-w-xl lg:max-w-3xl">
-              <h1 className="mt-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+              <h1 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
                 Meet our best physiotherapist
               </h1>
 
-              <p className="mt-4 leading-relaxed text-gray-500">
+              <p className="mt-4 leading-relaxed text-white">
                 Discover Effective Physiotherapy Solutions
               </p>
 
@@ -150,7 +185,7 @@ const Form = () => {
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-white"
                   >
                     First Name
                   </label>
@@ -169,26 +204,18 @@ const Form = () => {
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-white"
                   >
                     Phone Number
                   </label>
 
-                  <input
-                    type="number"
-                    id="phone"
-                    name="phone"
-                    className="mt-1 w-full rounded-md border-gray-200 bg-white text-sm text-gray-700 shadow-sm h-10 p-2 border"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                  />
+                  <PhoneInput {...phoneInputProps} />
                 </div>
 
                 <div className="col-span-6">
                   <label
                     htmlFor="age"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-white"
                   >
                     {" "}
                     Age{" "}
@@ -208,7 +235,7 @@ const Form = () => {
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="company"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-white"
                   >
                     {" "}
                     Company Name{" "}
@@ -228,7 +255,7 @@ const Form = () => {
                 <div className="col-span-6 sm:col-span-3">
                   <label
                     htmlFor="chiefComplaints"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-white"
                   >
                     City
                   </label>
@@ -252,7 +279,7 @@ const Form = () => {
                 <div className="col-span-6">
                   <label
                     htmlFor="chiefComplaints"
-                    className="block text-sm font-medium text-gray-700"
+                    className="block text-sm font-medium text-white"
                   >
                     Chief Complaint
                   </label>
@@ -272,7 +299,7 @@ const Form = () => {
                   <div className="col-span-6">
                     <label
                       htmlFor="previousExpreience"
-                      className="block text-sm font-medium text-gray-700"
+                      className="block text-sm font-medium text-white"
                     >
                       {" "}
                       Any previous experience with physiotherapy{" "}

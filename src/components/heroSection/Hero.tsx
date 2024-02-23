@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import Header from "../header/Header";
 const Hero = () => {
   return (
-    <section className="mt-5" id="home">
+    <section className="" id="home">
       <Header />
 
       <div className="grid grid-cols-1 place-content-between  sm:grid-cols-2 ">

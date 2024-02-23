@@ -36,7 +36,7 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <div className="my-10 w-full mx-auto " id="testimonials">
+    <div className="my-10 w-full mx-auto text-white" id="testimonials">
       <h1 className="text-3xl font-bold text-center my-5">Testimonials</h1>
       {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mx-3">
         {data.map((item) => (

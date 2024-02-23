@@ -14,7 +14,7 @@ const Header: React.FunctionComponent<IHeaderProps> = () => {
   return (
     <>
       {" "}
-      <div className="flex justify-between px-5 mt-10">
+      <div className="flex justify-between px-5 pt-10 text-white">
         <Link to="/">
           <img
             src="https://ik.imagekit.io/tcfp7i31d/logo_with_yp_black_urUeyjKwY.svg"

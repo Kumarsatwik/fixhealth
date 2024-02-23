@@ -5,7 +5,7 @@ interface IFooterProps {}
 const Footer: React.FunctionComponent<IFooterProps> = () => {
   return (
     <>
-      <footer className=" my-2 py-2 bg-gray-300 w-full" id="contact">
+      <footer className=" my-2 py-2 bg-gray-600 w-full text-white" id="contact">
         <h1 className="text-3xl font-bold text-center bg-transparent my-2">
           FixHealth
         </h1>
