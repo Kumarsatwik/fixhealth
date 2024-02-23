@@ -26,7 +26,7 @@ const Testimonials = () => {
 
   useEffect(() => {
     axios
-      .get("https://mocki.io/v1/2a92f0ac-4a23-47d6-8850-2ec73c13b191")
+      .get("https://mocki.io/v1/a0e82a64-f1ec-480e-8878-66136b9452e6")
       .then((res) => {
         setData(res.data.testimonials);
       })
