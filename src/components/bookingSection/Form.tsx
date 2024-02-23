@@ -54,7 +54,8 @@ const Form = () => {
       formData.company == "" ||
       formData.age == 0
     ) {
-      return alert("please fill all details");
+      toast("please fill all details");
+      return;
     }
 
     if (formData.phone.length < 10 || formData.phone.length > 10) {
@@ -67,7 +68,6 @@ const Form = () => {
       navigate("/");
     }, 2000);
   };
-
 
   const handleChange = (
     e: React.ChangeEvent<
