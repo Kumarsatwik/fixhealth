@@ -68,7 +68,6 @@ const Form = () => {
     }, 2000);
   };
 
-  console.log(filteredData);
 
   const handleChange = (
     e: React.ChangeEvent<
